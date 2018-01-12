@@ -1,9 +1,9 @@
-var Username = document.getElementById("name")
+var Username = document.getElementById("login-name")
 console.log(Username)
 
 var NameError = document.getElementById("error")
 
-var Pass = document.getElementById("pass")
+var Pass = document.getElementById("login-pass")
 
 function getvalues(event){
   event.preventDefault();
@@ -15,10 +15,26 @@ function getvalues(event){
   }
 }
 
+function othervalues(event){
+  event.preventDefault();
+
+
+  var register_name = document.getElementById("register-name");
+  var register_email = document.getElementById("register-email");
+  var register_pass = document.getElementById("register-pass");
+
+  localStorage.setItem("name", register_name.value);
+  localStorage.setItem("email", register_email.value);
+  localStorage.setItem("pass", register_pass.value);
+
+  location.replace("./registered.html");
+}
+
+
 var loginForm = document.getElementById("login-form")
 var registerForm = document.getElementById("register-form")
 loginForm.addEventListener("submit",getvalues)
-
+registerForm.addEventListener("submit",othervalues)
 
 function registerClicked() {
   loginForm.classList.add("hide");
