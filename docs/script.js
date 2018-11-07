@@ -3,6 +3,8 @@ console.log(Username)
 
 var NameError = document.getElementById("error")
 
+
+
 var Pass = document.getElementById("login-pass")
 
 function getvalues(event){
@@ -15,19 +17,40 @@ function getvalues(event){
   }
 }
 
+var regError = document.getElementById("error-reg")
+
 function othervalues(event){
   event.preventDefault();
-
-
   var register_name = document.getElementById("register-name");
   var register_email = document.getElementById("register-email");
   var register_pass = document.getElementById("register-pass");
 
-  localStorage.setItem("name", register_name.value);
-  localStorage.setItem("email", register_email.value);
-  localStorage.setItem("pass", register_pass.value);
+var body = {
+  email: register_email.value,
+  name: register_name.value,
+  password: register_pass.value,
+};
 
-  location.replace("./registered.html");
+
+  fetch('http://localhost:1234/register', {
+    method:'POST',
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify(body)
+  })
+  .then(raw => raw.json())
+  .then(response => {
+    console.log('vratilo se:', response)
+    if (response.status == 'ok'){
+      location.replace("./index.html");
+    } else {
+      regError.innerHTML = response.message;
+    }
+  })
+  .catch(error => {
+    regError.innerHTML = error.message;
+  })
 }
 
 

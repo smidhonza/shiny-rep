@@ -8,7 +8,7 @@ abbr:hover{
 }
 
 
-#error{
+.error{
   color:red;
   padding: 15px;
 }
